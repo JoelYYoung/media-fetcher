@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="从 YouTube、Bilibili 和其他媒体站点获取音频或视频">
+  <title>Media Fetcher</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css?v=3">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><img src="/favicon.svg" alt=""><span>Media Fetcher</span></a>
+    <div class="top-actions">
+      <span id="workerState" class="worker-state">准备中</span>
+      <button id="settingsButton" class="ghost-button" type="button">登录配置</button>
+      <form method="post" action="/logout"><button class="ghost-button" type="submit">退出</button></form>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">YouTube · Bilibili · 更多站点</div>
+      <h1>把链接变成<br><span>你的媒体文件。</span></h1>
+      <p>自动识别站点、选择最佳流并完成音视频合并。文件仅对你的账号可见，并会自动清理。</p>
+    </section>
+
+    <section class="composer panel">
+      <form id="jobForm">
+        <label class="url-label" for="url">媒体链接</label>
+        <div class="url-row">
+          <input id="url" name="url" type="url" inputmode="url" autocomplete="off" placeholder="https://www.youtube.com/watch?v=…" required>
+          <button id="submitButton" class="primary-button" type="submit">开始获取</button>
+        </div>
+        <div class="options-row">
+          <label class="select-wrap"><span>输出</span><select id="mode" name="mode"></select></label>
+          <label class="check"><input id="playlist" type="checkbox"><span>整个播放列表 / 合集</span></label>
+          <label class="check"><input id="subtitles" type="checkbox"><span>附带中英文字幕</span></label>
+        </div>
+        <label class="rights"><input id="rights" type="checkbox" required><span>我拥有此内容，或已获得保存和使用它的许可。</span></label>
+      </form>
+      <div id="formMessage" class="message hidden" role="alert"></div>
+    </section>
+
+    <section class="jobs-section">
+      <div class="section-heading">
+        <div><span class="eyebrow">QUEUE</span><h2>获取任务</h2></div>
+        <button id="refreshButton" class="icon-button" type="button" aria-label="刷新">↻</button>
+      </div>
+      <div id="emptyState" class="empty panel hidden">
+        <div class="empty-icon">↓</div>
+        <h3>还没有任务</h3>
+        <p>粘贴一个你有权保存的媒体链接即可开始。</p>
+      </div>
+      <div id="jobs" class="job-list"></div>
+    </section>
+  </main>
+
+  <dialog id="settingsDialog">
+    <div class="dialog-head">
+      <div><span class="eyebrow">AUTH & NETWORK</span><h2>登录配置</h2></div>
+      <button id="closeSettings" class="icon-button" type="button" aria-label="关闭">×</button>
+    </div>
+    <p class="dialog-intro">公开视频优先匿名获取。只有年龄限制、私有或会员内容才需要 Cookie；建议使用非主力账号。</p>
+    <div id="profiles" class="profiles"></div>
+    <div class="security-note"><strong>安全说明</strong><span>只保留目标站点 Cookie，并使用 macOS Keychain 中的密钥加密。服务不会保存站点密码。</span></div>
+  </dialog>
+
+  <dialog id="transcriptDialog" class="transcript-dialog">
+    <div class="dialog-head">
+      <div><span class="eyebrow">LOCAL ASR</span><h2 id="transcriptTitle">语音转文字</h2></div>
+      <button id="closeTranscript" class="icon-button" type="button" aria-label="关闭">×</button>
+    </div>
+    <p id="transcriptMeta" class="dialog-intro"></p>
+    <pre id="transcriptText" class="transcript-text"></pre>
+    <div class="transcript-actions">
+      <button id="copyTranscript" class="ghost-button" type="button">复制文字</button>
+      <a id="downloadTranscript" class="download" href="#">下载 TXT</a>
+    </div>
+  </dialog>
+
+  <template id="jobTemplate">
+    <article class="job panel">
+      <div class="job-top">
+        <div class="site-mark"></div>
+        <div class="job-copy"><h3 class="job-title"></h3><div class="job-meta"></div></div>
+        <span class="status-pill"></span>
+      </div>
+      <div class="progress-track"><div class="progress-bar"></div></div>
+      <div class="progress-copy"><span class="progress-detail"></span><span class="progress-percent"></span></div>
+      <div class="job-error hidden"></div>
+      <div class="subtitle-state hidden"></div>
+      <div class="transcript-state hidden"><span class="transcript-phase"></span><span class="transcript-percent"></span></div>
+      <div class="job-actions"></div>
+    </article>
+  </template>
+
+  <script src="/assets/app.js?v=3" defer></script>
+</body>
+</html>

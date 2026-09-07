@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>登录 · Media Fetcher</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css?v=1">
+</head>
+<body class="login-page">
+  <main class="login-card">
+    <div class="login-brand"><img src="/favicon.svg" alt=""><div><h1>Media Fetcher</h1><span>私人媒体获取服务</span></div></div>
+    <h2>登录后继续</h2>
+    <div class="login-error">用户名或密码不正确，或账号已被锁定。</div>
+    <form method="post" action="/login">
+      <label>用户名<input name="username" autocomplete="username" required autofocus></label>
+      <label>密码<input name="password" type="password" autocomplete="current-password" required></label>
+      <button type="submit">登录</button>
+    </form>
+    <p>与 VibeTypst、Voice Studio 共用账号与权限</p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,1 @@
+"""Media Fetcher application package."""

@@ -1,0 +1,27 @@
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+.env
+.env.*
+!.env.example
+
+data/
+downloads/
+cookies.txt
+cookies-*.txt
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+*.log
+
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# This machine's LaunchAgent contains absolute local paths.
+com.yjw.media-fetcher.plist
